@@ -4,7 +4,8 @@ class Graph {
   float[] inputs;
   float x,y,v_x,v_y,a_x,a_y;
   
-  Graph(float x, float y, float v_x, float v_y, float a_x, float a_y) {
+  Graph(float x, float y, float v_x, float v_y, float a_x, float a_y) 
+  {
     this.x = x;
     this.y = y;
     this.v_x = v_x;
@@ -13,7 +14,8 @@ class Graph {
     this.a_y = a_y;
   }
   
-  void display(Table table, float t) {
+  void display(Table table, float t) 
+  {
     String[] labels = {"Time", "X-Pos", "Y-Pos", "X-Vel", "Y-Vel", "X-Accel", "Y-Accel"};
     float[] inputs = {t*1.0, x, y, v_x, v_y, a_x, a_y};
     data = new FloatList(inputs);
@@ -40,7 +42,8 @@ class Graph {
     setData(table.addRow(), labels, inputs, t);
   }
   
-  void setData(TableRow newRow, String[] labels, float[] data, float t) {
+  void setData(TableRow newRow, String[] labels, float[] data, float t) 
+  {
     for (int i = 0; i < data.length; i ++) {
       newRow.setFloat(labels[i], data[i]);
     }

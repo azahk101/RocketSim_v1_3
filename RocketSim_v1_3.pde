@@ -1,5 +1,8 @@
 ArrayList<Graph> graph;
 Particle particle;
+Gravity grav;
+Thrust thrust;
+Drag drag;
 Table table;
 int time;
 int refresh;
@@ -12,6 +15,9 @@ void setup() {
   v_i = new PVector(0,0);
   a_i = new PVector(0,0);
   particle = new Particle(x_i,v_i,a_i);
+  grav = new Gravity(particle.mass);
+  thrust = new Thrust(particle.mass, 20);
+  drag = new Drag(particle.mass, 1, .15, .5);
   graph = new ArrayList<Graph>();
   table = new Table();
   refresh = 60;
@@ -27,7 +33,10 @@ void draw() {
         graph.add(g);    
         g.display(table, time/(refresh*1.0));
       }
-      particle.move(refresh, time);
+      grav.applyGravity(particle.acceleration, particle.position.y, refresh);
+      thrust.applyThrust(particle.acceleration, particle.velocity, refresh, time);
+      drag.applyDrag(particle.acceleration, particle.velocity, refresh);
+      particle.move();
       time ++;
     } else {
       textAlign(CENTER);

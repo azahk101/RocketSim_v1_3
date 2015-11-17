@@ -1,7 +1,8 @@
 class Rocket {
   float noseForce, fussForce, finForce, deltoid;
   float finLen, noseLen, fussRad;
-  Rocket(float finLength, float noseLength, float fussRadius) {
+  Rocket(float finLength, float noseLength, float fussRadius)
+  {
     noseForce = 2;
   }
   /*
