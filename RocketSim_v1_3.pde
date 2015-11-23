@@ -8,19 +8,25 @@ int time;
 int refresh;
 PVector x_i, v_i, a_i;
 
+import controlP5.*;
+ControlP5 cp5;
+String textValue = "";
+
 void setup() {
   size(800, 800);
   time = 0;
   x_i = new PVector(0,0);
   v_i = new PVector(0,0);
   a_i = new PVector(0,0);
-  particle = new Particle(x_i,v_i,a_i);
+  cp5 = new ControlP5(this);
+  particle = new Particle(2,x_i,v_i,a_i);
   grav = new Gravity(particle.mass);
-  thrust = new Thrust(particle.mass, 20);
-  drag = new Drag(particle.mass, 1, .15, .5);
+  thrust = new Thrust(particle.mass, 50, 3);
+  drag = new Drag(particle.mass, 1, .1, .47);
   graph = new ArrayList<Graph>();
   table = new Table();
   refresh = 60;
+  
   noLoop();
 }
 

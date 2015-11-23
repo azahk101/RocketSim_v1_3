@@ -1,8 +1,9 @@
-class Rocket {
+class Rocket extends Particle{
   float noseForce, fussForce, finForce, deltoid;
   float finLen, noseLen, fussRad;
-  Rocket(float finLength, float noseLength, float fussRadius)
+  Rocket(float p_mass, PVector position, PVector velocity, PVector acceleration, float finLength, float noseLength, float fussRadius)
   {
+    super(p_mass, position, velocity, acceleration);
     noseForce = 2;
   }
   /*

@@ -1,6 +1,7 @@
 class Graph {
   FloatList data;
   String[] labels;
+  PFont std;
   float[] inputs;
   float x,y,v_x,v_y,a_x,a_y;
   
@@ -12,6 +13,7 @@ class Graph {
     this.v_y = v_y;
     this.a_x = a_x;
     this.a_y = a_y;
+    std = createFont("SansSerif", 12);
   }
   
   void display(Table table, float t) 
@@ -23,6 +25,7 @@ class Graph {
       fill(0);
       if (t == 0) {
         table.addColumn(labels[i]);
+        textFont(std);
         text(labels[i], 20 + 50 * i, 20);
         text(labels[i], width/2 + 20 + 50 * i, 20);
       }
@@ -31,10 +34,12 @@ class Graph {
       if (t > 0 && t <= 5.0) {
         rect(20 + 50 * i, 10 + 30 * t*5.0, 50, 15);
         fill(0);
+        textFont(std);
         text(nums, 20 + 50 * i, 22.5 + 30 * t*5.0);
       } else {
         rect(width/2 + 20 + 50 * i, 10 + 30 * (t - 5)*5.0, 50, 15);
         fill(0);
+        textFont(std);
         text(nums, width/2 + 20 + 50 * i, 22.5 + 30 * (t - 5)*5.0);
       }
         

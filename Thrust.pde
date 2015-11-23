@@ -1,11 +1,12 @@
 class Thrust extends Force {
   
-  float avMag;
+  float avMag, thrustT;
   
-  Thrust(float p_mass, float p_avMag) 
+  Thrust(float p_mass, float p_avMag, float p_thrustT) 
   {
     super(p_mass);
     this.avMag = p_avMag;
+    this.thrustT = p_thrustT;
   }
   
  void applyThrust(PVector acceleration, PVector velocity, int refresh, float time) 
@@ -17,7 +18,7 @@ class Thrust extends Force {
     thrust.normalize();
     thrust.mult(avMag);
     
-    if (time/refresh < 5.0) {
+    if (time/refresh < thrustT) {
       applyForce(thrust, acceleration, refresh);
     }
   }
