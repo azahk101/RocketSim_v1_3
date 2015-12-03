@@ -46,32 +46,33 @@ void draw()
       cp5.get(Textfield.class, "input").setLabel("Enter mass of rocket (kg):");
     } else if (state == 1)
     {
-      cp5.get(Textfield.class, "input").setLabel("Enter average engine thrust (newtons):");
+      cp5.get(Textfield.class, "input").setLabel("Enter diameter of fuselage (m):");
     } else if (state == 2)
     {
-      cp5.get(Textfield.class, "input").setLabel("Enter engine thrust time (seconds):");
+      cp5.get(Textfield.class, "input").setLabel("Enter nose cone type (choose 1, 2, or 3):");
     } else if (state == 3)
     {
-      cp5.get(Textfield.class, "input").setLabel("Enter cross-area of nose cone (meters):");
+      cp5.get(Textfield.class, "input").setLabel("Enter parachute resistance (N):");
     }
   } else
   {
     cp5.get(Textfield.class, "input").remove();
+    Table thrustTable = loadTable("data/thrust.csv", "header");
     particle = new Particle(inputArray.get(0), x_i, v_i, a_i);
     grav = new Gravity(particle.mass);
-    thrust = new Thrust(particle.mass, inputArray.get(1), inputArray.get(2));
-    drag = new Drag(particle.mass, 1, inputArray.get(3), .47);
+    thrust = new Thrust(particle.mass, thrustTable);
+    drag = new Drag(particle.mass, 1.2, (pow(inputArray.get(1)/2, 2) * PI), .47);
     graph = new ArrayList<Graph>();
     table = new Table();
-    refresh = 60;
+    refresh = 100;
     background(255);
 
     while (time <= 10 * refresh) {
-      if (particle.position.y >= 0 || time == 0) {
+      if (particle.position.y >= 0.0 || time <= refresh) {
         if (time % (refresh/10) == 0) {
           Graph g = new Graph(particle.position.x/refresh, particle.position.y/refresh, particle.velocity.x, particle.velocity.y, particle.stoAcceleration.x, particle.stoAcceleration.y);
           graph.add(g);    
-          g.display(table, time/(refresh*1.0));
+          g.display(table, time/(refresh*1.0), 1);
         }
         grav.applyGravity(particle.acceleration, particle.position.y, refresh);
         thrust.applyThrust(particle.acceleration, particle.velocity, refresh, time);
@@ -81,7 +82,7 @@ void draw()
       } else {
         Graph g = new Graph(particle.position.x/refresh, 0, particle.velocity.x, particle.velocity.y, particle.stoAcceleration.x, particle.stoAcceleration.y);
         graph.add(g);    
-        g.display(table, time/(refresh*1.0));
+        g.display(table, time/(refresh*1.0), 0);
         textAlign(CENTER);
         text("Rocket landed at time " + time/(refresh*1.0) + " seconds", width/2, height);
         time = 10 * refresh + 1;

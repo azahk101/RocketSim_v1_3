@@ -1,25 +1,33 @@
 class Thrust extends Force {
   
-  float avMag, thrustT;
+  Table thrustTable;
+  int row = 0;
   
-  Thrust(float p_mass, float p_avMag, float p_thrustT) 
+  Thrust(float p_mass, Table thrustTable) 
   {
     super(p_mass);
-    this.avMag = p_avMag;
-    this.thrustT = p_thrustT;
+    this.thrustTable = thrustTable;
   }
   
  void applyThrust(PVector acceleration, PVector velocity, int refresh, float time) 
  {
     PVector thrust = velocity.get();
-    if (thrust.y == 0) {
+    if (thrust.y <= 0) {
       thrust.y = 1;
     }
     thrust.normalize();
-    thrust.mult(avMag);
     
-    if (time/refresh < thrustT) {
-      applyForce(thrust, acceleration, refresh);
+    float thrustT = thrustTable.getFloat(row, "Time");
+    float mag = 0;
+    if (thrustT >= time/refresh) {
+      mag = thrustTable.getFloat(row, "Thrust");
+    } else if (row == thrustTable.getRowCount() - 1) {
+    } else {
+      row++;
+      mag = thrustTable.getFloat(row, "Thrust");
     }
+    
+    thrust.mult(mag);
+    applyForce(thrust, acceleration, refresh);
   }
 }

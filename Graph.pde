@@ -16,7 +16,7 @@ class Graph {
     std = createFont("SansSerif", 12);
   }
   
-  void display(Table table, float t) 
+  void display(Table table, float t, int check) 
   {
     String[] labels = {"Time", "X-Pos", "Y-Pos", "X-Vel", "Y-Vel", "X-Accel", "Y-Accel"};
     float[] inputs = {t*1.0, x, y, v_x, v_y, a_x, a_y};
@@ -32,24 +32,44 @@ class Graph {
       float nums = data.get(i);
       noFill();
       if (t > 0 && t <= 5.0) {
-        t = float(nf(t, 1, 1));
+        if (check == 1) {
         rect(20 + 50 * i, 10 + 30 * t*5.0, 50, 15);
         fill(0);
         textFont(std);
         text(nums, 20 + 50 * i, 22.5 + 30 * t*5.0);
+        } else {
+          float t_temp = float(nfs(t, 1, 1));
+          if (t%.1 < 5) {
+            t_temp += .1;
+          }
+          rect(20 + 50 * i, 10 + 30 * t_temp*5.0, 50, 15);
+          fill(0);
+          textFont(std);
+          text(nums, 20 + 50 * i, 22.5 + 30 * t_temp*5.0);
+        }
       } else {
-        t = float(nf(t, 1, 1));
+        if (check == 1) {
         rect(width/2 + 20 + 50 * i, 10 + 30 * (t - 5)*5.0, 50, 15);
         fill(0);
         textFont(std);
         text(nums, width/2 + 20 + 50 * i, 22.5 + 30 * (t - 5)*5.0);
+        } else {
+          float t_temp = float(nfs(t, 1, 1));
+          if (t%.1 < 5) {
+            t_temp += .1;
+          }
+          rect(width/2 + 20 + 50 * i, 10 + 30 * (t_temp - 5)*5.0, 50, 15);
+          fill(0);
+          textFont(std);
+          text(nums, width/2 + 20 + 50 * i, 22.5 + 30 * (t_temp - 5)*5.0);
+        }
       }
         
     }
-    setData(table.addRow(), labels, inputs, t);
+    setData(table.addRow(), labels, inputs);
   }
   
-  void setData(TableRow newRow, String[] labels, float[] data, float t) 
+  void setData(TableRow newRow, String[] labels, float[] data) 
   {
     for (int i = 0; i < data.length; i ++) {
       newRow.setFloat(labels[i], data[i]);
