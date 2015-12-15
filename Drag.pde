@@ -2,15 +2,14 @@ class Drag extends Force {
   
   float crossArea, coDrag, airDens;
   
-  Drag(float p_mass, float p_airDens, float p_crossArea, float p_coDrag)
+  Drag(float p_airDens, float p_crossArea, float p_coDrag)
   {
-    super(p_mass);
     this.airDens = p_airDens;
     this.crossArea = p_crossArea;
     this.coDrag = p_coDrag;
   }
   
-  void applyDrag(PVector acceleration, PVector velocity, int refresh)
+  void applyDrag(float mass, PVector acceleration, PVector velocity, int refresh)
   {
     float speed = velocity.mag();
     float dragMag = .5 * coDrag * crossArea * airDens * pow(speed,2);
@@ -19,6 +18,18 @@ class Drag extends Force {
     drag.mult(-1);
     drag.mult(dragMag);
     
-    applyForce(drag, acceleration, refresh);
+    applyForce(mass, drag, acceleration, refresh);
+  }
+  
+  void checkforPara(boolean deployPara, float newDragC, float newCrossA)
+  {
+    if (deployPara)
+    {
+      coDrag = newDragC;
+      crossArea = newCrossA;
+    }
+    else
+    {
+    }
   }
 }

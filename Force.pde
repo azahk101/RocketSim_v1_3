@@ -1,15 +1,14 @@
 class Force {
-  float mass;
   
-  Force(float p_mass) 
+  Force() 
   {
-    this.mass = p_mass;
   }
   
-  void applyForce(PVector force, PVector acceleration, int refresh)
+  void applyForce(float mass, PVector force, PVector acceleration, int refresh)
   {
     PVector f = force.get();
     f.div(mass*refresh);
+    println(f);
     acceleration.add(f);
   }
 }
