@@ -18,7 +18,7 @@ ControlP5 cp5;
 String textValue = "";
 
 void setup() {
-  size(800, 800);
+  size(800, 700);
   time = 0;
   state = 0;
   x_i = new PVector(0, 0);
@@ -116,6 +116,7 @@ void draw()
         textAlign(CENTER);
         text("Rocket landed at time " + time/(refresh*1.0) + " seconds", width/2, height);
         particle.position.y = 0;
+        time = 10 * refresh + 1;
       }
     }
     saveTable(table, "data/data.csv");
