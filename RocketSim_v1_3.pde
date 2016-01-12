@@ -101,6 +101,7 @@ void draw()
         if (thrust.stageChange == true)
         {
           particle.mass = inputArray.get(0);
+          drag.checkforPara(thrust.stageChange, 1.35, pow(inputArray.get(4)/3, 2) * PI);
         }
         println(particle.mass);
         grav.applyGravity(particle.mass, particle.acceleration, particle.position.y, refresh);
