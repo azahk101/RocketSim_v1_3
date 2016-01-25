@@ -1,4 +1,5 @@
-class Force {
+class Force
+{
   
   Force() 
   {
@@ -8,7 +9,6 @@ class Force {
   {
     PVector f = force.get();
     f.div(mass*refresh);
-    println(f);
     acceleration.add(f);
   }
 }

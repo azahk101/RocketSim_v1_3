@@ -1,10 +1,11 @@
-class Particle {
+class Particle
+{
   PVector position, velocity, acceleration, stoAcceleration;
   float mass;
   
-  Particle(float p_mass, PVector position, PVector velocity, PVector acceleration)
+  Particle(float mass, PVector position, PVector velocity, PVector acceleration)
   {
-    this.mass = p_mass;
+    this.mass = mass;
     this.position = position;
     this.velocity = velocity;
     this.acceleration = acceleration;

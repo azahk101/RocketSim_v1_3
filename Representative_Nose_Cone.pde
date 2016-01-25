@@ -1,11 +1,12 @@
-class Nosecone {
-  
+class R_Nosecone
+{ 
   PShape s;
   float x, y, curve;
   int num;
   color c;
   
-  Nosecone(float x_t, float y_t, float curve_t, color c_t, int num_t) {
+  R_Nosecone(float x_t, float y_t, float curve_t, color c_t, int num_t)
+  {
     x = x_t;
     y = y_t;
     curve = curve_t;
@@ -13,7 +14,8 @@ class Nosecone {
     num = num_t;
   }
   
-  void display() {
+  void display()
+  {
     fill(c);
     stroke(0);
     strokeWeight(.5);

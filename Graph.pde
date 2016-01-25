@@ -1,4 +1,5 @@
-class Graph {
+class Graph
+{
   FloatList data;
   String[] labels;
   PFont std;
