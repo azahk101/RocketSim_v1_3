@@ -114,8 +114,6 @@ void draw()
       {
         if (time % (refresh/10) == 0)
         {
-          //Graph g = new Graph(time/(refresh*1.0), roc.position.x/refresh, roc.position.y/refresh, roc.velocity.x, roc.velocity.y, roc.stoAcceleration.x, roc.stoAcceleration.y);
-          //graph.add(g);
           graph.update(time/(refresh*1.0), roc.position.x/refresh, roc.position.y/refresh, roc.velocity.x, roc.velocity.y, roc.stoAcceleration.x, roc.stoAcceleration.y);
           graph.display(table, 1);
         }
