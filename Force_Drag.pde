@@ -22,6 +22,9 @@ class Drag extends Force
     nosDrag.normalize();
     nosDrag.mult(-1);
     nosDrag.mult(dragMagNos);
+    /*PVector test = nosDrag.get();
+    test.div(roc.mass);
+    println("Drag: ", test);*/
     
     applyForce(roc.mass, finDrag, roc.acceleration, refresh);
     applyForce(roc.mass, nosDrag, roc.acceleration, refresh);

@@ -12,7 +12,7 @@ class Particle
     this.stoAcceleration = acceleration;
   }
   
-  void move() 
+  void move(int refresh) 
   {
     velocity.add(acceleration);
     position.add(velocity);

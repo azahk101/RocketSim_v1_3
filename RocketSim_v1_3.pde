@@ -1,4 +1,4 @@
-ArrayList<Graph> graph;
+Graph graph;
 FloatList inputArray;
 Gravity grav;
 Thrust thrust;
@@ -19,7 +19,7 @@ String textValue = "";
 
 void setup()
 {
-  size(800, 700);
+  size(1300, 700);
   time = 0;
   refresh = 100;
   state = 0;
@@ -95,6 +95,7 @@ void draw()
       noseDrag = .40;
     }
     cp5.get(Textfield.class, "input").remove();
+    background(255);
     
     roc = new Rocket(inputArray.get(0) + inputArray.get(1) + inputArray.get(2) + inputArray.get(3), x_i, v_i, a_i, inputArray.get(0), inputArray.get(1), inputArray.get(2), inputArray.get(3),
       inputArray.get(4), inputArray.get(5), inputArray.get(6), inputArray.get(8), 0/*Temp*/, PI*pow(inputArray.get(5), 2), 0/*Temp*/, noseDrag);
@@ -103,37 +104,37 @@ void draw()
     grav = new Gravity();
     thrust = new Thrust(thrustTable);
     drag = new Drag(1.2);
-    graph = new ArrayList<Graph>();
+    //graph = new ArrayList<Graph>();
+    graph = new Graph(time/(refresh*1.0), roc.position.x/refresh, roc.position.y/refresh, roc.velocity.x, roc.velocity.y, roc.stoAcceleration.x, roc.stoAcceleration.y);
     table = new Table();
-    background(255);
 
-    while (time <= 10 * refresh || roc.position.y != 0)
+    while (time <= 5 * refresh || roc.position.y != 0)
     {
       if (roc.position.y >= 0.0 || time <= refresh)
       {
         if (time % (refresh/10) == 0)
         {
-          Graph g = new Graph(roc.position.x/refresh, roc.position.y/refresh, roc.velocity.x, roc.velocity.y, roc.stoAcceleration.x, roc.stoAcceleration.y);
-          graph.add(g);
-          g.display(table, time/(refresh*1.0), 1);
+          //Graph g = new Graph(time/(refresh*1.0), roc.position.x/refresh, roc.position.y/refresh, roc.velocity.x, roc.velocity.y, roc.stoAcceleration.x, roc.stoAcceleration.y);
+          //graph.add(g);
+          graph.update(time/(refresh*1.0), roc.position.x/refresh, roc.position.y/refresh, roc.velocity.x, roc.velocity.y, roc.stoAcceleration.x, roc.stoAcceleration.y);
+          graph.display(table, 1);
         }
         grav.applyGravity(roc, refresh);
         thrust.applyThrust(roc, refresh, time);
         drag.applyDrag(roc, refresh);
-        roc.move();
+        roc.move(refresh);
         roc.update(thrust, refresh);
         time ++;
       } else {
-        Graph g = new Graph(roc.position.x/refresh, 0, roc.velocity.x, roc.velocity.y, roc.stoAcceleration.x, roc.stoAcceleration.y);
-        graph.add(g); 
-        g.display(table, time/(refresh*1.0), 0);
+        graph.update(time/(refresh*1.0), roc.position.x/refresh, 0, roc.velocity.x, roc.velocity.y, roc.stoAcceleration.x, roc.stoAcceleration.y);
+        graph.display(table, 0);
         textAlign(CENTER);
         text("Rocket landed at time " + time/(refresh*1.0) + " seconds", width/2, height);
         roc.position.y = 0;
-        time = 10 * refresh + 1;
       }
     }
     saveTable(table, "data/data.csv");
+    open("E:/Senior Engineering Project/RocketSim_v1_3/data/data.csv");
     noLoop();
   }
 }

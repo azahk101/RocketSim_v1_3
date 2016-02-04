@@ -32,6 +32,9 @@ class Thrust extends Force
     }
     
     thrust.mult(mag);
+    /*PVector test = thrust.get();
+    test.div(p.mass);
+    println("Thrust: ", test);*/
     applyForce(p.mass, thrust, p.acceleration, refresh);
   }
 }

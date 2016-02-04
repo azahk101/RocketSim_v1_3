@@ -12,7 +12,9 @@ class Gravity extends Force
     PVector force = new PVector(0,1);
     float strength = -(G * p.mass * massE) / (pow(radiusE + p.position.y, 2));
     force.mult(strength);
-    
+    /*PVector test = force.get();
+    test.div(p.mass);
+    println("Gravity: ", test);*/
     applyForce(p.mass, force, p.acceleration, refresh);
   }
 }
