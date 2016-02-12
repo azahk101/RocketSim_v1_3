@@ -1,7 +1,6 @@
 class Graph_Line
 {
   
-  PShape plot;
   FloatList data;
   float t, y;
   

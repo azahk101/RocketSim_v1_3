@@ -7,7 +7,7 @@ R_Nosecone nose1;
 R_Nosecone nose2;
 R_Nosecone nose3;
 Rocket roc;
-Table table;
+Table dataTable;
 int time;
 int refresh;
 int state;
@@ -104,18 +104,17 @@ void draw()
     grav = new Gravity();
     thrust = new Thrust(thrustTable);
     drag = new Drag(1.2);
-    //graph = new ArrayList<Graph>();
     graph = new Graph(time/(refresh*1.0), roc.position.x/refresh, roc.position.y/refresh, roc.velocity.x, roc.velocity.y, roc.stoAcceleration.x, roc.stoAcceleration.y);
-    table = new Table();
+    dataTable = new Table();
 
-    while (time <= 5 * refresh || roc.position.y != 0)
+    while (time <= refresh/10 || roc.position.y != 0)
     {
-      if (roc.position.y >= 0.0 || time <= refresh)
+      if (roc.position.y >= 0.0)
       {
         if (time % (refresh/10) == 0)
         {
           graph.update(time/(refresh*1.0), roc.position.x/refresh, roc.position.y/refresh, roc.velocity.x, roc.velocity.y, roc.stoAcceleration.x, roc.stoAcceleration.y);
-          graph.display(table, 1);
+          graph.display(dataTable, 1);
         }
         grav.applyGravity(roc, refresh);
         thrust.applyThrust(roc, refresh, time);
@@ -123,15 +122,21 @@ void draw()
         roc.move(refresh);
         roc.update(thrust, refresh);
         time ++;
-      } else {
-        graph.update(time/(refresh*1.0), roc.position.x/refresh, 0, roc.velocity.x, roc.velocity.y, roc.stoAcceleration.x, roc.stoAcceleration.y);
-        graph.display(table, 0);
-        textAlign(CENTER);
-        text("Rocket landed at time " + time/(refresh*1.0) + " seconds", width/2, height);
+      } else
+      {
         roc.position.y = 0;
       }
     }
-    saveTable(table, "data/data.csv");
+    
+    graph.update(time/(refresh*1.0), roc.position.x/refresh, 0, roc.velocity.x, roc.velocity.y, roc.stoAcceleration.x, roc.stoAcceleration.y);
+    graph.display(dataTable, 0);
+    
+    textAlign(CENTER);
+    textFont(createFont("Ariel", 18));
+    text("Rocket landed at time " + time/(refresh*1.0) + " seconds", width*3/4, height - 2);
+    text("Terminal velocity: " + abs(roc.velocity.y) + " m/s", width*3/4, height - 22);
+    
+    saveTable(dataTable, "data/data.csv");
     open("E:/Senior Engineering Project/RocketSim_v1_3/data/data.csv");
     noLoop();
   }

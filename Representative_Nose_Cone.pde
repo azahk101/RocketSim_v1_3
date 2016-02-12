@@ -1,9 +1,9 @@
 class R_Nosecone
 { 
   PShape s;
-  float x, y, curve;
-  int num;
+  int ID;
   color c;
+  float x, y, curve;
   
   R_Nosecone(float x_t, float y_t, float curve_t, color c_t, int num_t)
   {
@@ -11,7 +11,7 @@ class R_Nosecone
     y = y_t;
     curve = curve_t;
     c = c_t;
-    num = num_t;
+    ID = num_t;
   }
   
   void display()
@@ -26,6 +26,6 @@ class R_Nosecone
     bezierVertex(x-curve, y-curve/1.5, x-curve, y-3*curve/1.5, x, y-80);
     bezierVertex(x+curve, y-3*curve/1.5, x+curve, y-curve/1.5, x+20, y-7.5);
     endShape();
-    text(num, x - 5, y + 30);
+    text(ID, x - 5, y + 30);
   }
 }

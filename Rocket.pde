@@ -5,10 +5,6 @@ class Rocket extends Particle
   Fuselage fus;
   Nosecone nos;
   
- /* float i_engM, i_finM, i_fusM, i_nosM;
-  float i_finLen, i_fusRad, i_nosLen;
-  float f_crossA, n_crossA, f_coDrag, n_coDrag;*/
-  
   Rocket(float mass, PVector position, PVector velocity, PVector acceleration, float i_engM, float i_finM, float i_fusM, float i_nosM,
     float i_finLen, float i_fusRad, float i_nosLen, float i_paraDi, float f_crossA, float n_crossA, float f_coDrag, float n_coDrag)
   {
