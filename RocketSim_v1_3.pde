@@ -17,6 +17,9 @@ import controlP5.*;
 ControlP5 cp5;
 String textValue = "";
 
+import http.requests.*;
+PostRequest post;
+
 void setup()
 {
   size(1300, 700);
@@ -138,6 +141,32 @@ void draw()
     
     saveTable(dataTable, "data/data.csv");
     open("E:/Senior Engineering Project/RocketSim_v1_3/data/data.csv");
+    
+    String xVal = "";
+    String yVal = "";
+    for (int i = 0; i < dataTable.getRowCount(); i++)
+    {
+      if (i < dataTable.getRowCount() - 1)
+      {
+        xVal += (""+dataTable.getFloat(i, "Time") + ",");
+        yVal += (""+dataTable.getFloat(i, "Y-Pos") + ",");
+      } else
+      {
+       xVal += (""+dataTable.getFloat(i, "Time"));
+       yVal += (""+dataTable.getFloat(i, "Y-Pos")); 
+      }
+    }
+    PostRequest post = new PostRequest("https://plot.ly/clientresp");
+    post.addData("un","azahk101");
+    post.addData("key", "qkqrue6kqj");
+    post.addData("origin", "plot");
+    post.addData("platform", "processing");
+    post.addData("args", "[[" + xVal + "],[" + yVal + "]]");
+    post.addData("kwargs", "{\"filename\": \"plot from api\", \"fileopt\": \"overwrite\",\"layout\": {\"title\": \"Rocket Simulation\", \"xaxis\": {\"title\": \"Time (s)\"}, \"yaxis\": {\"title\": \"Y-Position (m)\"}}}");
+    post.send();
+    println("Response:" + post.getContent());
+    String response = post.getContent().substring(9, post.getContent().indexOf("message") - 4);
+    open("start " + response);
     noLoop();
   }
 }

@@ -32,11 +32,13 @@ class Graph_Line
       strokeWeight(1.2);
       smooth();
       float maxH = 0.0;
+      int stoI = 0;
       for (int i = 1; i < data.size() - 2; i += 2)
       {
         if (data.get(i) > maxH)
         {
           maxH = data.get(i);
+          stoI = i;
         }
       }
       maxH += 10;
@@ -44,6 +46,9 @@ class Graph_Line
       {
         line(width/2.0 + 20 + data.get(i)*(width/2.0 - 40)/data.get(data.size()-2), height - 20 - data.get(i+1)*(height - 40)/maxH, width/2.0 + 20 + data.get(i+2)*(width/2.0 - 40)/data.get(data.size()-2), height - 20 - data.get(i+3)*(height - 40)/maxH);
       }
+      textSize(18);
+      fill(0);
+      text("Maximum height: " + (maxH-10) + " m", width/2.0 + 20 + data.get(stoI-1)*(width/2.0 - 40)/data.get(data.size()-2), 50);
     }
   }
 }
