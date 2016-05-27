@@ -13,7 +13,4 @@ class Engine extends Particle
       mass = mass - ((.0108/t.thrustTable.getFloat(t.thrustTable.getRowCount() - 2, "Time"))/refresh);
     }
   }
-  
-  
-  
 }

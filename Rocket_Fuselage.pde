@@ -1,15 +1,18 @@
 class Fuselage extends Particle
 {
-  float fusRad;
+  float fusRad, fusLen;
   
-  Fuselage(float mass, PVector position, PVector velocity, PVector acceleration, float fusRadius)
+  Fuselage(float mass, PVector position, PVector velocity, PVector acceleration, float fusRadius, float fusLength)
   {
     super(mass, position, velocity, acceleration);
     fusRad = fusRadius;
+    fusLen = fusLength;
   }
   
-  /*float fusselagePressure(float fussLen, finLen)
+  void display(float x, float y)
   {
-    return 1 + (fussLen / (fussLen + finLen));
-  }*/
+    fill(125,255);
+    rectMode(RADIUS);
+    rect(x, y, fusRad*width/600, fusLen*width/1200);
+  }
 }
